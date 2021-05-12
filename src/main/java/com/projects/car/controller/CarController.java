@@ -4,10 +4,7 @@ import com.projects.car.domain.Car;
 import com.projects.car.service.CarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 @RestController
@@ -20,7 +17,8 @@ public class CarController {
     }
 
 
-    public ResponseEntity<Car> getCarDetails(String name) {
+    @GetMapping("/api/cars/{name}")
+    public ResponseEntity<Car> getCarDetails(@PathVariable  String name) {
 
        // System.out.println(name);
        Optional<Car> car= carService.getCarDetails(name);

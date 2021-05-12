@@ -38,6 +38,22 @@ public class CarEndPointTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
+    @Test
+    void givenInValidCarNameShouldReturnError() throws JsonProcessingException {
+        Car car = new Car("prius","hybrid");
+        HttpEntity httpEntity = getStringHttpEntity(car);
+        ResponseEntity<String> response=  restTemplate.getForEntity("/api/cars/bmm",String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+    @Test
+    void givenValidCarNameShouldReturnCarDetails() throws JsonProcessingException {
+        Car car = new Car("prius","hybrid");
+        HttpEntity httpEntity = getStringHttpEntity(car);
+        ResponseEntity<String> response=  restTemplate.postForEntity("/api/cars",httpEntity,String.class);
+        ResponseEntity<String> responseInquiry=  restTemplate.getForEntity("/api/cars/prius",String.class);
+        assertThat(responseInquiry.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
     private HttpEntity<String> getStringHttpEntity(Car car) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
