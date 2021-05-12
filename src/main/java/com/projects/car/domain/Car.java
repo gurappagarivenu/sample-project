@@ -4,6 +4,8 @@ public class Car {
     private String name;
     private String model;
 
+    public Car (){}
+
     public String getName() {
         return name;
     }
