@@ -1,10 +1,12 @@
 package com.projects.car.service;
 
 import com.projects.car.domain.Car;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.Optional;
 
+@Service
 public class CarService {
 
     private Map<String, Car> carMap;

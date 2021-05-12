@@ -1,5 +1,6 @@
 package com.projects.car.domain;
 
+
 public class Car {
     private String name;
     private String model;
