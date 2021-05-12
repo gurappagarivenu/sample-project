@@ -14,12 +14,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CarServiceTester {
 
     private CarService carService;
+    Car emptyCar = new Car("","");
+    Car car1 = new Car("prius","hybrid");
+    Car car2 = new Car("bmw","hybrid");
+    Car car3 = new Car("tesla","electric");
 
     @BeforeEach
     void setUp() {
-        Car car1 = new Car("prius","hybrid");
-        Car car2 = new Car("bmw","hybrid");
-        Car car3 = new Car("tesla","electric");
+
         Map<String, Car> map = new HashMap<>();
         map.put("prius",car1);
         map.put("bmw",car2);
@@ -37,5 +39,15 @@ public class CarServiceTester {
     void givenCarNameExistShoudReturnCarDetails() {
         Optional<Car> car = carService.getCarDetails("prius");
         assertThat(car.get().getName()).isEqualTo("prius");
+    }
+
+    @Test
+    void givenInvalidCarDetailsShouldReturnError() {
+        assertThat(carService.saveCarDetails(emptyCar)).isEqualTo(Optional.empty());
+    }
+
+    @Test
+    void givenValidCarDetailsShouldSaveAndReturnValidResponse() {
+        assertThat(carService.saveCarDetails(car1).get().getName()).isEqualTo(car1.getName());
     }
 }
